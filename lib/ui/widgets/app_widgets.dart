@@ -62,77 +62,54 @@ class TextInputFormField extends StatelessWidget {
       // color: Colors.blue,
       height: height,
       width: double.infinity,
-      child: Stack(
-        children: <Widget>[
-          // Row(
-          //   children: <Widget>[
-          //     Expanded(
-          //       child: Container(
-          //         alignment: Alignment.centerLeft,
-          //         height: height,
-          //         decoration: BoxDecoration(
-          //             color: kWhite,
-          //             borderRadius: const BorderRadius.all(
-          //               const Radius.circular(22.0),
-          //             )),
-          //         child: Padding(
-          //           padding: const EdgeInsets.only(left: 14.0),
-          //           child: preffixIcon,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          Container(
-            decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.all(Radius.circular(6.0))),
-            height: height,
-            child: TextFormField(
-              cursorColor: cursorColor,
-              inputFormatters: inputFormatters,
-              // validator: validator,
-              // obscureText: obscureText,
-              maxLength: maxLength,
-              readOnly: readOnly!,
-              maxLines: maxLines,
-              keyboardType: keyboardType,
-              controller: controller,
-              textAlign: textAlign == null ? TextAlign.start : textAlign!,
-              autofocus: autofocus!,
-              style: style,
-              textCapitalization: TextCapitalization.words,
-              onTap: onTap,
-              // onSubmitted: onSubmitted,
-              onChanged: onChanged,
-              decoration: new InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.transparent, width: 1.0),
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(6.0),
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.transparent, width: 1.0),
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(6.0),
-                    ),
-                  ),
-                  border: new OutlineInputBorder(),
-                  filled: true,
-                  counterText: "",
-                  hintStyle: hintTextStyle,
-                  hintText: "$hintText",
-                  fillColor: fillColor,
-                  prefixIcon: prefixIcon,
-                  suffix: suffixWidget,
-                  suffixIcon: suffixIcon,
-                  contentPadding: contentPadding),
-            ),
-          ),
-        ],
+      child: Container(
+        decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.all(Radius.circular(6.0))),
+        height: height,
+        child: TextFormField(
+          cursorColor: cursorColor,
+          inputFormatters: inputFormatters,
+          // validator: validator,
+          // obscureText: obscureText,
+          maxLength: maxLength,
+          readOnly: readOnly!,
+          maxLines: maxLines,
+          keyboardType: keyboardType,
+          controller: controller,
+          textAlign: textAlign == null ? TextAlign.start : textAlign!,
+          autofocus: autofocus!,
+          style: style,
+          textCapitalization: TextCapitalization.words,
+          onTap: onTap,
+          // onSubmitted: onSubmitted,
+          onChanged: onChanged,
+          decoration: new InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Colors.transparent, width: 1.0),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(6.0),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Colors.transparent, width: 1.0),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(6.0),
+                ),
+              ),
+              border: new OutlineInputBorder(),
+              filled: true,
+              counterText: "",
+              hintStyle: hintTextStyle,
+              hintText: "$hintText",
+              fillColor: fillColor,
+              prefixIcon: prefixIcon,
+              suffix: suffixWidget,
+              suffixIcon: suffixIcon,
+              contentPadding: contentPadding),
+        ),
       ),
     );
   }
