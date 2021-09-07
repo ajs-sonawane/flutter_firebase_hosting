@@ -13,15 +13,14 @@ class TopBarMenuItemWidget extends StatelessWidget {
           child: Center(
             child: Text(
               text!,
-              style: TextStyle(color: Colors.black,
-              fontWeight: FontWeight.w600,
-              fontSize: 14.0),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.0),
             ),
           ),
         ),
-        SizedBox(
-          width: 10,
-        ),
+        SizedBox(width: 10),
       ],
     );
   }

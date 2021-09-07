@@ -6,9 +6,15 @@ class ProductItemCard extends StatelessWidget {
   final String? prodName;
   final String? calories;
   final String? amount;
+  final String? layout;
 
   const ProductItemCard(
-      {Key? key, this.networkIMGurl, this.prodName, this.calories, this.amount})
+      {Key? key,
+      this.networkIMGurl,
+      this.prodName,
+      this.calories,
+      this.amount,
+      this.layout})
       : super(key: key);
 
   @override
@@ -16,7 +22,7 @@ class ProductItemCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       // color: Colors.grey,
-      height: size.height*0.3,
+      height: size.height * 0.3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -24,7 +30,8 @@ class ProductItemCard extends StatelessWidget {
             children: [
               Container(
                 height: size.height * 0.2,
-                width: size.width * 0.2,
+                width:
+                    layout!.contains("mobile") ? size.width : size.width * 0.2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: Colors.yellow,
@@ -54,7 +61,7 @@ class ProductItemCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Container(
-            width: size.width * 0.2,
+            width: layout!.contains("mobile") ? size.width : size.width * 0.2,
             // color: Colors.red,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,14 +72,18 @@ class ProductItemCard extends StatelessWidget {
                     Text(
                       prodName!,
                       style: TextStyle(
-                          fontWeight: FontWeight.w900, fontSize: size.width * 0.02),
+                          fontWeight: FontWeight.w900,
+                          fontSize: layout!.contains("mobile")
+                              ? size.width * 0.05
+                              : size.width * 0.02),
                     ),
                     Text(
                       "$calories calories",
                       style: Theme.of(context)
                           .textTheme
                           .caption!
-                          .copyWith(fontSize: size.width * 0.01),
+                          .copyWith(fontSize:  layout!.contains("mobile")
+                          ?size.width*0.03:size.width * 0.01),
                     ),
                   ],
                 ),
@@ -80,7 +91,8 @@ class ProductItemCard extends StatelessWidget {
                 Text(
                   "₹",
                   style: TextStyle(
-                      fontWeight: FontWeight.w900, fontSize: size.width * 0.01),
+                      fontWeight: FontWeight.w900, fontSize: layout!.contains("mobile")
+                      ? size.width*0.03:size.width * 0.01),
                 ),
                 Text(
                   amount!,

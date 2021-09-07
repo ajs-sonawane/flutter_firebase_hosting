@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_hosting/ui/pages/bars_screen.dart';
+import 'package:flutter_firebase_hosting/ui/pages/cups_screen.dart';
+import 'package:flutter_firebase_hosting/ui/pages/dairy_screen.dart';
+import 'package:flutter_firebase_hosting/ui/pages/snacks_screen.dart';
 import 'package:flutter_firebase_hosting/ui/widgets/app_widgets.dart';
 import 'package:flutter_firebase_hosting/ui/widgets/product_item_card.dart';
 import 'package:flutter_firebase_hosting/ui/widgets/topbar_menu_item_widget.dart';
@@ -14,64 +18,87 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amberAccent,
-      body: _bodyContent(context),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth > 600) {
+            return WebLayout();
+          } else {
+            return MobileLayout();
+          }
+        },
+      ),
     );
+  }
+}
+
+class WebLayout extends StatelessWidget {
+  const WebLayout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _bodyContent(context);
   }
 
   Widget _bodyContent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [topBar(context), content(context)],
+    Size size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: size.height),
+        child: Column(
+          children: [topBar(context), content(context)],
+        ),
       ),
     );
   }
 
   Widget topBar(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 14,
-          child: TextInputFormField(
-            height: 45.0,
-            cursorColor: Colors.black,
-            autofocus: false,
-            readOnly: false,
-            obscureText: false,
-            color: Colors.white,
-            hintText: "Search Entries",
-            hintTextStyle: TextStyle(fontSize: 12.0),
-            prefixIcon: Icon(
-              CupertinoIcons.search,
-              color: Colors.black26,
-              size: 20.0,
-            ),
-            suffixIcon: Container(
-              width: 25.0,
-              margin: EdgeInsets.all(10.0),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(8.0)),
-              child: Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: Colors.white,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 20.0),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 14,
+            child: TextInputFormField(
+              height: 45.0,
+              cursorColor: Colors.black,
+              autofocus: false,
+              readOnly: false,
+              obscureText: false,
+              color: Colors.white,
+              hintText: "Search Entries",
+              hintTextStyle: TextStyle(fontSize: 12.0),
+              prefixIcon: Icon(
+                CupertinoIcons.search,
+                color: Colors.black26,
                 size: 20.0,
               ),
+              suffixIcon: Container(
+                width: 25.0,
+                margin: EdgeInsets.all(10.0),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(8.0)),
+                child: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
+              ),
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
             ),
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
           ),
-        ),
-        Spacer(),
-        TopBarMenuItemWidget(text: "All Snacks"),
-        Spacer(),
-        TopBarMenuItemWidget(text: "Bars"),
-        Spacer(),
-        TopBarMenuItemWidget(text: "Cups"),
-        Spacer(),
-        TopBarMenuItemWidget(text: "Diary"),
-      ],
+          Spacer(),
+          TopBarMenuItemWidget(text: "All Snacks"),
+          Spacer(),
+          TopBarMenuItemWidget(text: "Bars"),
+          Spacer(),
+          TopBarMenuItemWidget(text: "Cups"),
+          Spacer(),
+          TopBarMenuItemWidget(text: "Diary"),
+        ],
+      ),
     );
   }
 
@@ -88,7 +115,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Container(),
                 Container(
-                  height: size.height*0.3,
+                  height: size.height * 0.3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -111,6 +138,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ProductItemCard(
+                      layout: "web",
                       prodName: "Granola Bar",
                       amount: "70",
                       calories: "50",
@@ -118,6 +146,7 @@ class HomePage extends StatelessWidget {
                           "https://www.nicepng.com/png/detail/82-822232_nith-river-milling-supplies-food-manufacturers-and-cereal.png",
                     ),
                     ProductItemCard(
+                      layout: "web",
                       prodName: "Roasted Nuts",
                       amount: "50",
                       calories: "14",
@@ -139,6 +168,7 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ProductItemCard(
+                        layout: "web",
                         prodName: "Fresh Peaches",
                         amount: "90",
                         calories: "50",
@@ -146,6 +176,7 @@ class HomePage extends StatelessWidget {
                             "https://www.nicepng.com/png/detail/82-822232_nith-river-milling-supplies-food-manufacturers-and-cereal.png",
                       ),
                       ProductItemCard(
+                        layout: "web",
                         prodName: "Granola Bar",
                         amount: "50",
                         calories: "50",
@@ -159,6 +190,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ProductItemCard(
+                      layout: "web",
                       prodName: "Strawberries",
                       amount: "90",
                       calories: "50",
@@ -166,6 +198,7 @@ class HomePage extends StatelessWidget {
                           "https://www.nicepng.com/png/detail/82-822232_nith-river-milling-supplies-food-manufacturers-and-cereal.png",
                     ),
                     ProductItemCard(
+                      layout: "web",
                       prodName: "Fruit Yogurt",
                       amount: "50",
                       calories: "14",
@@ -221,6 +254,262 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class MobileLayout extends StatelessWidget {
+  MobileLayout({Key? key}) : super(key: key);
+  var scrollController = ScrollController();
+  var globalKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    return _bodyContent(context);
+  }
+
+  Widget _bodyContent(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      endDrawer: _rhDrawer(context),
+      body: SingleChildScrollView(
+        controller: scrollController,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: size.height),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    searchBar(context),
+                    content(context),
+                  ],
+                ),
+              ),
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    height: size.height * 0.25,
+                    color: Color(0xff263238),
+                  ),
+                  Container(
+                    height: size.height * 0.18,
+                    color: Color(0xff455a64),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget searchBar(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextInputFormField(
+            height: 45.0,
+            cursorColor: Colors.black,
+            autofocus: false,
+            readOnly: false,
+            obscureText: false,
+            color: Colors.white,
+            hintText: "Search Entries",
+            hintTextStyle: TextStyle(fontSize: 12.0),
+            prefixIcon: Icon(
+              CupertinoIcons.search,
+              color: Colors.black26,
+              size: 20.0,
+            ),
+            suffixIcon: Container(
+              width: 25.0,
+              margin: EdgeInsets.all(10.0),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(8.0)),
+              child: Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color: Colors.white,
+                size: 20.0,
+              ),
+            ),
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+          ),
+        ),
+        SizedBox(width: 8.0),
+        _cartBtn(context)
+        // IconButton(
+        //     onPressed: () {
+        //
+        //     },
+        //     icon: Icon(CupertinoIcons.list_dash))
+      ],
+    );
+  }
+
+  Widget content(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return CustomScrollView(
+      controller: scrollController,
+      shrinkWrap: true,
+      slivers: [
+        SliverAppBar(
+          backgroundColor: Colors.transparent,
+          expandedHeight: size.height * 0.2,
+          pinned: true,
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Container(
+              // height: size.height * 0.3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "healthy",
+                    style: TextStyle(
+                        height: size.height * 0.0012,
+                        // fontFamily: 'Rubik',
+                        fontWeight: FontWeight.bold,
+                        fontSize: size.width * 0.11),
+                  ),
+                  Text("Be healthy on the go.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: size.width * 0.032)),
+                ],
+              ),
+            ),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            ProductItemCard(
+              layout: "mobile",
+              prodName: "Fresh Peaches",
+              amount: "90",
+              calories: "50",
+              networkIMGurl:
+                  "https://www.nicepng.com/png/detail/82-822232_nith-river-milling-supplies-food-manufacturers-and-cereal.png",
+            ),
+            ProductItemCard(
+              layout: "mobile",
+              prodName: "Granola Bar",
+              amount: "50",
+              calories: "50",
+              networkIMGurl:
+                  "https://www.pngkit.com/png/detail/251-2516634_w450-roasted-cashew-nuts-cashew.png",
+            ),
+            ProductItemCard(
+              layout: "mobile",
+              prodName: "Fresh Peaches",
+              amount: "90",
+              calories: "50",
+              networkIMGurl:
+                  "https://www.nicepng.com/png/detail/82-822232_nith-river-milling-supplies-food-manufacturers-and-cereal.png",
+            ),
+            ProductItemCard(
+              layout: "mobile",
+              prodName: "Granola Bar",
+              amount: "50",
+              calories: "50",
+              networkIMGurl:
+                  "https://www.pngkit.com/png/detail/251-2516634_w450-roasted-cashew-nuts-cashew.png",
+            ),
+            ProductItemCard(
+              layout: "mobile",
+              prodName: "Strawberries",
+              amount: "90",
+              calories: "50",
+              networkIMGurl:
+                  "https://www.nicepng.com/png/detail/82-822232_nith-river-milling-supplies-food-manufacturers-and-cereal.png",
+            ),
+            ProductItemCard(
+              layout: "mobile",
+              prodName: "Fruit Yogurt",
+              amount: "50",
+              calories: "14",
+              networkIMGurl:
+                  "https://www.pngkit.com/png/detail/251-2516634_w450-roasted-cashew-nuts-cashew.png",
+            ),
+          ]),
+        ),
+      ],
+    );
+  }
+
+  Widget _rhDrawer(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+        width: size.width * 0.6,
+        child: Drawer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ListTile(
+                title: Text("All Snacks"),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text("Bars"),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text("Cups"),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text("Dairy"),
+                onTap: () {},
+              ),
+            ],
+          ),
+        ));
+  }
+
+  Widget _cartBtn(BuildContext context){
+    return Container(
+      // color: Colors.grey,
+      height: 50,
+      width: 50,
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          Center(
+            child: Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.0)),
+              child: IconButton(
+                  iconSize: 20.0,
+                  onPressed: () {},
+                  icon: Icon(Icons.add_shopping_cart_rounded)),
+            ),
+          ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              CircleAvatar(
+                radius: 8.0,
+                backgroundColor: Colors.amberAccent,
+              ),
+              CircleAvatar(
+                radius: 4.0,
+                backgroundColor: Colors.red,
+              ),
             ],
           )
         ],
